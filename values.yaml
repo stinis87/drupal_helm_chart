@@ -17,8 +17,8 @@ fullnameOverride: ""
 
 # The ports Drupal is available at.
 containerPorts:
-  http: 8080
-  https: 8443
+  http: 80
+  https: 443
 
 # @todo Group drupal variables.
 
