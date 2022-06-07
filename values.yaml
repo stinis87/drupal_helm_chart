@@ -70,6 +70,8 @@ podAnnotations: {}
 
 priorityClassName: ""
 
+podAffinityPreset: soft
+
 podAntiAffinityPreset: soft
 ## Node affinity preset
 ## Ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity
