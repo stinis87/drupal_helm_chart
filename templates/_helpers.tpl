@@ -87,3 +87,7 @@ Return the proper image name
         {{- tpl (.value | toYaml) .context }}
     {{- end }}
 {{- end -}}
+
+{{- define "certificates.image" -}}
+{{- include "kub2.image" ( dict "imageRoot" .Values.certificates.image "global" .Values.global ) -}}
+{{- end -}}

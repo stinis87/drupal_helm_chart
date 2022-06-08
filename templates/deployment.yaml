@@ -41,6 +41,58 @@ spec:
         nodeAffinity: {{- include "common.affinities.nodes" (dict "type" .Values.nodeAffinityPreset.type "key" .Values.nodeAffinityPreset.key "values" .Values.nodeAffinityPreset.values) | nindent 10 }}
       {{- end }}
       priorityClassName: {{ .Values.priorityClassName | quote }}
+      initContainers:
+        {{- if .Values.initContainers }}
+        {{- include "tplvalues.render" (dict "value" .Values.initContainers "context" $) | nindent 8 }}
+        {{- end }}
+        {{- if .Values.certificates.customCAs }}
+        - name: certificates
+          image: {{ template "certificates.image" . }}
+          imagePullPolicy: {{ default .Values.image.pullPolicy .Values.certificates.image.pullPolicy }}
+          imagePullSecrets:
+          {{- range (default .Values.image.pullSecrets .Values.certificates.image.pullSecrets) }}
+            - name: {{ . }}
+          {{- end }}
+          command:
+          {{- if .Values.certificates.command }}
+          command: {{- include "tplvalues.render" (dict "value" .Values.certificates.command "context" $) | nindent 12 }}
+          {{- else if .Values.certificates.customCertificate.certificateSecret }}
+          - sh
+          - -c
+          - install_packages ca-certificates openssl
+          {{- else }}
+          - sh
+          - -c
+          - install_packages ca-certificates openssl
+            && openssl req -new -x509 -days 3650 -nodes -sha256
+              -subj "/CN=$(hostname)" -addext "subjectAltName = DNS:$(hostname)"
+              -out  /etc/ssl/certs/ssl-cert-snakeoil.pem
+              -keyout /etc/ssl/private/ssl-cert-snakeoil.key -extensions v3_req
+          {{- end }}
+          {{- if .Values.certificates.args }}
+          args: {{- include "tplvalues.render" (dict "value" .Values.certificates.args "context" $) | nindent 12 }}
+          {{- end }}
+          env: {{- include "tplvalues.render" (dict "value" .Values.certificates.extraEnvVars "context" $) | nindent 12 }}
+          envFrom:
+            {{- if .Values.certificates.extraEnvVarsCM }}
+            - configMapRef:
+                name: {{ include "tplvalues.render" (dict "value" .Values.certificates.extraEnvVarsCM "context" $) }}
+            {{- end }}
+            {{- if .Values.certificates.extraEnvVarsSecret }}
+            - secretRef:
+                name: {{ include "tplvalues.render" (dict "value" .Values.certificates.extraEnvVarsSecret "context" $) }}
+            {{- end }}
+          volumeMounts:
+            - name: etc-ssl-certs
+              mountPath: /etc/ssl/certs
+              readOnly: false
+            - name: etc-ssl-private
+              mountPath: /etc/ssl/private
+              readOnly: false
+            - name: custom-ca-certificates
+              mountPath: /usr/local/share/ca-certificates
+              readOnly: true
+        {{- end }}
       containers:
         - name: {{ include "names.fullname" . }}
           image: {{ template "drupal.image" . }}
