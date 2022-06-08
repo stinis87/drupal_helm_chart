@@ -266,6 +266,14 @@ mariadb:
       hostPath: ""
       existingClaim: ""
 
+externalDatabase:
+  host: ""
+  port: 3306
+  user: bn_drupal
+  password: ""
+  database: bitnami_drupal
+
+
 
 networkPolicy:
   enabled: false
