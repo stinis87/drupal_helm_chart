@@ -34,7 +34,7 @@ commonLabels: {}
 image:
   registry: ghcr.io
   repository: andeersg/k8s_website
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
 
