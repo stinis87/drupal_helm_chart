@@ -57,6 +57,10 @@ drupalEmail: user@example.com
 
 allowEmptyPassword: true
 
+letsencrypt:
+  enabled: false
+  email: ""
+
 hostAliases:
   ## Necessary for apache-exporter to work
   ##
@@ -272,8 +276,6 @@ externalDatabase:
   user: bn_drupal
   password: ""
   database: bitnami_drupal
-
-
 
 networkPolicy:
   enabled: false

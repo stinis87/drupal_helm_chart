@@ -21,3 +21,14 @@ Create chart name and version as used by the chart label.
 {{- end -}}
 {{- end -}}
 {{- end -}}
+
+{{/*
+Allow the release namespace to be overridden for multi-namespace deployments in combined charts.
+*/}}
+{{- define "names.namespace" -}}
+{{- if .Values.namespaceOverride -}}
+{{- .Values.namespaceOverride -}}
+{{- else -}}
+{{- .Release.Namespace -}}
+{{- end -}}
+{{- end -}}
