@@ -51,7 +51,8 @@ Return  the proper Storage Class
 Return the proper Docker Image Registry Secret Names
 */}}
 {{- define "drupal.imagePullSecrets" -}}
-{{- include "images.renderPullSecrets" ( dict "images" (list .Values.image .Values.volumePermissions.image) "global" .Values.global) -}}
+#{{- include "images.renderPullSecrets" ( dict "images" (list .Values.image .Values.volumePermissions.image) "global" .Values.global) -}}
+{{- include "images.pullSecrets" (dict "images" (list .Values.image .Values.volumePermissions.image .Values.certificates.image) "global" .Values.global) -}}
 {{- end -}}
 
 {{/*

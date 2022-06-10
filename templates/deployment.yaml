@@ -28,7 +28,9 @@ spec:
         {{- include "tplvalues.render" (dict "value" .Values.podAnnotations "context" $) | nindent 8 }}
         {{- end }}
     spec:
-      {{- include "drupal.imagePullSecrets" . | nindent 6 }}
+      #{{- include "drupal.imagePullSecrets" . | nindent 6 }}
+      imagePullSecrets:
+        - name: ghcr-secret
       {{- if .Values.podSecurityContext.enabled }}
       securityContext: {{- omit .Values.podSecurityContext "enabled" | toYaml | nindent 8 }}
       {{- end }}
