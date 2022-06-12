@@ -19,7 +19,3 @@ dependencies:
     name: mariadb
     repository: https://charts.bitnami.com/bitnami
     version: 10.x.x
-  - condition: letsencrypt.enabled
-    name: cert-manager
-    repository: https://charts.bitnami.com/bitnami
-    version: 0.5.x
