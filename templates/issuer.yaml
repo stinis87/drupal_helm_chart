@@ -2,13 +2,13 @@
 apiVersion: cert-manager.io/v1
 kind: Issuer
 metadata:
-  name: letsencrypt-cert
+  name: {{ printf "%s-tls" .Values.ingress.hostname }}
 spec:
   acme:
     server: https://acme-staging-v02.api.letsencrypt.org/directory
     email: {{ .Values.letsencrypt.email }}
     privateKeySecretRef:
-      name: letsencrypt-cert
+      name: {{ printf "%s-tls" .Values.ingress.hostname }}
     solvers:
       - http01:
           ingress:
