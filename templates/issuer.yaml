@@ -1,8 +1,9 @@
 {{- if .Values.letsencrypt.enabled -}}
 apiVersion: cert-manager.io/v1
-kind: Issuer
+kind: ClusterIssuer
 metadata:
   name: {{ printf "%s-tls" .Values.ingress.hostname }}
+  namespace: cert-manager
 spec:
   acme:
     server: https://acme-staging-v02.api.letsencrypt.org/directory
