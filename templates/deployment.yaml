@@ -27,9 +27,6 @@ spec:
         {{- if .Values.podAnnotations }}
         {{- include "tplvalues.render" (dict "value" .Values.podAnnotations "context" $) | nindent 8 }}
         {{- end }}
-        {{- if .Values.letsencrypt.enabled }}
-          cert-manager.io/cluster-issuer: letsencrypt-cert
-        {{- end }}
     spec:
       #{{- include "drupal.imagePullSecrets" . | nindent 6 }}
       imagePullSecrets:
