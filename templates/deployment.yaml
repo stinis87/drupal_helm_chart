@@ -47,6 +47,25 @@ spec:
         {{- if .Values.initContainers }}
         {{- include "tplvalues.render" (dict "value" .Values.initContainers "context" $) | nindent 8 }}
         {{- end }}
+        {{- if and .Values.volumePermissions.enabled .Values.persistence.enabled }}
+        - name: volume-permissions
+          image: {{ include "drupal.volumePermissions.image" . }}
+          imagePullPolicy: {{ .Values.volumePermissions.image.pullPolicy | quote }}
+          command:
+            - sh
+            - -c
+            - |
+              mkdir -p "/var/www/html/web/sites/default/files"
+              chown -R "{{ .Values.containerSecurityContext.runAsUser }}:{{ .Values.podSecurityContext.fsGroup }}" "/var/www/html/web/sites/default/files"
+          securityContext:
+            runAsUser: 0
+          {{- if .Values.volumePermissions.resources }}
+          resources: {{- toYaml .Values.volumePermissions.resources | nindent 12 }}
+          {{- end }}
+          volumeMounts:
+            - name: drupal-data
+              mountPath: /var/www/html/web/sites/default/files
+        {{- end }}
         {{- if .Values.certificates.customCAs }}
         - name: certificates
           image: {{ template "certificates.image" . }}
@@ -161,6 +180,9 @@ spec:
           {{- if .Values.resources }}
           resources: {{- toYaml .Values.resources | nindent 12 }}
           {{- end }}
+          volumeMounts:
+            - name: drupal-data
+              mountPath: /var/www/html/web/sites/default/files
       volumes:
         - name: drupal-data
           {{- if .Values.persistence.enabled }}
