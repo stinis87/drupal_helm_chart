@@ -46,6 +46,8 @@ containerPorts:
   http: 80
   https: 443
 
+webhook: false
+
 # @todo Group drupal variables.
 
 drupalPreprocess: true
