@@ -309,7 +309,7 @@ networkPolicy:
     customRules: {}
 
 volumePermissions:
-  enabled: false
+  enabled: true
   image:
     registry: docker.io
     repository: bitnami/bitnami-shell
