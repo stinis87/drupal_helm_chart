@@ -5,7 +5,7 @@
 global:
   imageRegistry: ""
   imagePullSecrets: []
-  storageClass: "longhorn"
+  storageClass: ""
 
 replicaCount: 1
 
@@ -272,7 +272,7 @@ mariadb:
   primary:
     persistence:
       enabled: true
-      storageClass: "-"
+      storageClass: ""
       accessModes:
         - ReadWriteOnce
       size: 8Gi
