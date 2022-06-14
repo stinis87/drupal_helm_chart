@@ -272,7 +272,7 @@ mariadb:
   primary:
     persistence:
       enabled: true
-      storageClass: ""
+      storageClass: "-"
       accessModes:
         - ReadWriteOnce
       size: 8Gi
