@@ -9,9 +9,6 @@ metadata:
     {{- include "tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 4 }}
     {{- end }}
   annotations:
-    {{- if .Values.ingress.certManager }}
-    cert-manager.io/cluster-issuer: {{ printf "%s-tls" .Values.ingress.hostname }}
-    {{- end }}
     {{- if .Values.ingress.annotations }}
     {{- include "tplvalues.render" (dict "value" .Values.ingress.annotations "context" $) | nindent 4 }}
     {{- end }}
