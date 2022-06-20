@@ -264,7 +264,7 @@ persistence:
   enabled: true
   storageClass: "longhorn"
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   size: 8Gi
   existingClaim: ""
   hostPath: ""
