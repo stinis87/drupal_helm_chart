@@ -58,6 +58,16 @@ drupalEmail: user@example.com
 
 allowEmptyPassword: true
 
+basicAuth:
+  enabled: false
+  existingSecret: ""
+  ## One row for each user
+  ## e.g:
+  ## entries: |
+  ##    testuser:{SHA}EWhzdhgoYJWy0z2gyzhRYlN9DSiv
+  ##
+  content: ""
+
 hostAliases:
   ## Necessary for apache-exporter to work
   ##

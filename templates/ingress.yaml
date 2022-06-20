@@ -15,6 +15,11 @@ metadata:
     {{- if .Values.commonAnnotations }}
     {{- include "tplvalues.render" ( dict "value" .Values.commonAnnotations "context" $ ) | nindent 4 }}
     {{- end }}
+    {{- if .Values.basicAuth.enabled }}
+    nginx.ingress.kubernetes.io/auth-type: basic
+    nginx.ingress.kubernetes.io/auth-secret: {{ template "names.fullname" . }}-htpasswd-file
+    nginx.ingress.kubernetes.io/auth-realm: 'Authentication Required'
+    {{- end }}
 spec:
   {{- if and .Values.ingress.ingressClassName (eq "true" (include "common.ingress.supportsIngressClassname" .)) }}
   ingressClassName: {{ .Values.ingress.ingressClassName | quote }}
