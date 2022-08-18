@@ -54,7 +54,7 @@ spec:
     - hosts:
         - {{ .Values.ingress.hostname | quote }}
         {{- if  .Values.ingress.extraTlsHosts }}
-        {{- range Values.ingress.extraTlsHosts }}
+        {{- range .Values.ingress.extraTlsHosts }}
         - {{ . | quote }}
         {{- end }} 
         {{- end }}
