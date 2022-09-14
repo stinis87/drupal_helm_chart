@@ -295,10 +295,12 @@ postgresql:
   auth:
       postgresPassword: "passord"
       postgresqlPassword: "passord"
+      password: "passord"
+      postgres-password: "passord"
       #postgresql-password : "12345678"
       enablePostgresUser: false
       username: "bn_drupal"
-      postgres-password: "passord"
+    
       database: "bitnami_drupal"
       existingSecret: ""
       secretKeys:
