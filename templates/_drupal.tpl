@@ -97,7 +97,7 @@ Return the database password key
 {{- if .Values.mariadb.enabled -}}
 mariadb-password
 {{- else if .Values.postgresql.enabled -}}
-postgres-password
+password
 {{- else -}}
 db-password
 {{- end -}}
