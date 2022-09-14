@@ -281,7 +281,7 @@ mariadb:
     password: "passord"
   primary:
     persistence:
-      enabled: false
+      enabled: true
       storageClass: ""
       accessModes:
         - ReadWriteOnce
@@ -305,7 +305,7 @@ postgresql:
         replicationPasswordKey: ""
   primary:
     persistence:
-      enabled: false
+      enabled: true
       storageClass: ""
       accessModes:
         - ReadWriteOnce
