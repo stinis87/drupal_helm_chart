@@ -293,8 +293,9 @@ postgresql:
   enabled: true
   architecture: standalone
   auth:
-      postgresqlPassword: "passord"
+      #postgresqlPassword: "passord"
       #postgresql-password : "12345678"
+      enablePostgresUser: false
       username: "bn_drupal"
       password: "passord"
       database: "bitnami_drupal"
