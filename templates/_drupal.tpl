@@ -6,14 +6,59 @@ Return the proper Drupal image name
 {{- end -}}
 
 {{/*
+Return the Database Port
+*/}}
+{{- define "drupal.databasePort" -}}
+{{- if .Values.mariadb.enabled -}}
+    3306
+{{- else if .Values.postgresql.enabled -}}
+    5432
+{{- else -}}
+    3306
+{{- end -}}
+{{- end -}}
+
+{{/*
+Return the Database Name
+*/}}
+{{- define "drupal.databaseName" -}}
+{{- if .Values.mariadb.enabled -}}
+ {{- printf "%s" .Values.mariadb.auth.database -}}
+{{- else if .Values.postgresql.enabled -}}
+    {{- printf "%s" .Values.postgresql.auth.database -}}
+{{- else -}}
+    {{- printf "%s" .Values.mariadb.auth.database -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Return the Database Name
+*/}}
+{{- define "drupal.databaseUserName" -}}
+{{- if .Values.mariadb.enabled -}}
+ {{- printf "%s" .Values.mariadb.auth.username -}}
+{{- else if .Values.postgresql.enabled -}}
+    {{- printf "%s" .Values.postgresql.auth.username -}}
+{{- else -}}
+    {{- printf "%s" .Values.mariadb.auth.username -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
 Return the MariaDB Hostname
 */}}
 {{- define "drupal.databaseHost" -}}
-{{- if .Values.mariadb.enabled }}
-    {{- if eq .Values.mariadb.architecture "replication" }}
+{{- if .Values.mariadb.enabled -}}
+    {{- if eq .Values.mariadb.architecture "replication" -}}
         {{- printf "%s-%s" (include "drupal.mariadb.fullname" .) "primary" | trunc 63 | trimSuffix "-" -}}
     {{- else -}}
         {{- printf "%s" (include "drupal.mariadb.fullname" .) -}}
+    {{- end -}}
+{{- else if .Values.postgresql.enabled -}}
+    {{- if eq .Values.postgresql.architecture "replication" -}}
+        {{- printf "%s-%s" (include "drupal.postgresql.fullname" .) "primary" | trunc 63 | trimSuffix "-" -}}
+    {{- else -}}
+        {{- printf "%s" (include "drupal.postgresql.fullname" .) -}}
     {{- end -}}
 {{- else -}}
     {{- printf "%s" .Values.externalDatabase.host -}}
@@ -28,12 +73,31 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 {{- printf "%s-%s" .Release.Name "mariadb" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
+{{- define "drupal.postgresql.fullname" -}}
+{{- printf "%s-%s" .Release.Name "postgresql" | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{/*
+Return the Database Name
+*/}}
+{{- define "drupal.fullname" -}}
+{{- if .Values.mariadb.enabled -}}
+ {{- printf "%s" (include "drupal.mariadb.fullname" .) -}}
+{{- else if .Values.postgresql.enabled -}}
+   {{- printf "%s" (include "drupal.postgresql.fullname" .) -}}
+{{- else -}}
+    {{- printf "%s" (include "drupal.mariadb.fullname" .) -}}
+{{- end -}}
+{{- end -}}
+
 {{/*
 Return the database password key
 */}}
 {{- define "drupal.databasePasswordKey" -}}
 {{- if .Values.mariadb.enabled -}}
 mariadb-password
+{{- else if .Values.postgresql.enabled -}}
+postgres-password
 {{- else -}}
 db-password
 {{- end -}}

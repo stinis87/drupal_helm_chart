@@ -2,8 +2,8 @@ dependencies:
 - name: mariadb
   repository: https://charts.bitnami.com/bitnami
   version: 10.5.1
-- name: cert-manager
+- name: postgresql
   repository: https://charts.bitnami.com/bitnami
-  version: 0.5.7
-digest: sha256:8f479af925de19018c00724351165c6007e2bea96264cc3b39b79ba5ac60e0ab
-generated: "2022-06-09T16:35:21.909347+02:00"
+  version: 11.8.1
+digest: sha256:c0e06c1d8cfaf95bc60c18f55ace68b0219e8eb9c609ee976caa48d6c5815d48
+generated: "2022-09-12T12:40:46.366121+02:00"

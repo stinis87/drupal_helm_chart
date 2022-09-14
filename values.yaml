@@ -33,7 +33,7 @@ commonLabels: {}
 
 image:
   registry: ghcr.io
-  repository: andeersg/k8s_website
+  repository: bouvet/grind2_master
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
@@ -50,7 +50,7 @@ containerPorts:
 
 drupalPreprocess: true
 drupalDebug: false
-drupalHashSalt: ""
+drupalHashSalt: "su6nfMFns6erougbwxKwergFCAgpiwhgZM"
 
 drupalUsername: user
 drupalPassword: "passord"
@@ -261,7 +261,7 @@ tolerations: []
 affinity: {}
 
 persistence:
-  enabled: true
+  enabled: false
   storageClass: "longhorn"
   accessModes:
     - ReadWriteMany
@@ -272,7 +272,7 @@ persistence:
 
 # Taken from bitnami-drupal:
 mariadb:
-  enabled: true
+  enabled: false
   architecture: standalone
   auth:
     rootPassword: "passord"
@@ -281,7 +281,31 @@ mariadb:
     password: "passord"
   primary:
     persistence:
-      enabled: true
+      enabled: false
+      storageClass: ""
+      accessModes:
+        - ReadWriteOnce
+      size: 8Gi
+      hostPath: ""
+      existingClaim: ""
+
+postgresql:
+  enabled: true
+  architecture: standalone
+  auth:
+      postgresqlPassword: "passord"
+      #postgresql-password : "12345678"
+      username: "bn_drupal"
+      password: "passord"
+      database: "bitnami_drupal"
+      existingSecret: ""
+      secretKeys:
+        adminPasswordKey: ""
+        userPasswordKey: ""
+        replicationPasswordKey: ""
+  primary:
+    persistence:
+      enabled: false
       storageClass: ""
       accessModes:
         - ReadWriteOnce
@@ -290,11 +314,11 @@ mariadb:
       existingClaim: ""
 
 externalDatabase:
-  host: ""
-  port: 3306
-  user: bn_drupal
-  password: ""
-  database: bitnami_drupal
+host: ""
+port: 3306
+user: bn_drupal
+password: ""
+database: bitnami_drupal
 
 networkPolicy:
   enabled: false

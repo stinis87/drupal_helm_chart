@@ -147,15 +147,15 @@ spec:
             - name: DRUPAL_DATABASE_HOST
               value: {{ include "drupal.databaseHost" . | quote }}
             - name: DRUPAL_DATABASE_PORT_NUMBER
-              value: {{ "3306" | quote }}
+              value: {{ include "drupal.databasePort" . | quote }}
             - name: DRUPAL_DATABASE_NAME
-              value: {{ .Values.mariadb.auth.database | quote }}
+              value: {{ include "drupal.databaseName" . | quote }}
             - name: DRUPAL_DATABASE_USER
-              value: {{ .Values.mariadb.auth.username | quote }}
+              value: {{ include "drupal.databaseUserName" . | quote }}
             - name: DRUPAL_DATABASE_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "drupal.mariadb.fullname" . }} # Fra bitnami mariadb chart.
+                  name: {{ include "drupal.fullname" . }} # Fra bitnami mariadb chart.
                   key: {{ include "drupal.databasePasswordKey" . | quote }}
             {{- if .Values.extraEnvVars }}
             {{- include "tplvalues.render" (dict "value" .Values.extraEnvVars "context" $) | nindent 12 }}
