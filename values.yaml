@@ -261,7 +261,7 @@ tolerations: []
 affinity: {}
 
 persistence:
-  enabled: false
+  enabled: true
   storageClass: "longhorn"
   accessModes:
     - ReadWriteMany
