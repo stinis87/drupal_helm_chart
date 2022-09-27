@@ -272,7 +272,7 @@ persistence:
 
 # Taken from bitnami-drupal:
 mariadb:
-  enabled: false
+  enabled: true
   architecture: standalone
   auth:
     rootPassword: "passord"
@@ -290,7 +290,7 @@ mariadb:
       existingClaim: ""
 
 postgresql:
-  enabled: true
+  enabled: false
   architecture: standalone
   auth:
       postgresPassword: "passord"
