@@ -55,6 +55,7 @@ drupalHashSalt: "su6nfMFns6erougbwxKwergFCAgpiwhgZM"
 drupalUsername: user
 drupalPassword: "passord"
 drupalEmail: user@example.com
+webroot: '/var/www/html/web'
 
 allowEmptyPassword: true
 

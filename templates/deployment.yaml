@@ -129,7 +129,7 @@ spec:
           {{- end }}
           env:
             - name: WEB_DOCUMENT_ROOT # @NOTE variabel for https://dockerfile.readthedocs.io/en/latest/content/DockerImages/dockerfiles/php-nginx.html
-              value: "/var/www/html/web" # @NOTE Bør kanskje ikke hardkodes?
+              value: {{ .Values.webroot | quote }}
             - name: WEB_ALIAS_DOMAIN
               value: {{ .Values.ingress.hostname | quote }} # @NOTE Usikker på om denne trengs å sendes videre.
             - name: DEVELOPMENT_MODE
