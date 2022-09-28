@@ -56,6 +56,7 @@ drupalUsername: user
 drupalPassword: "passord"
 drupalEmail: user@example.com
 webroot: '/var/www/html/web'
+volumeMountPath: '/var/www/html/web/sites/default/files'
 
 allowEmptyPassword: true
 

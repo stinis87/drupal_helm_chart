@@ -55,8 +55,8 @@ spec:
             - sh
             - -c
             - |
-              mkdir -p "/var/www/html/web/sites/default/files"
-              chown -R "{{ .Values.containerSecurityContext.runAsUser }}:{{ .Values.podSecurityContext.fsGroup }}" "/var/www/html/web/sites/default/files"
+              mkdir -p "{{ .Values.volumeMountPath | quote }}"
+              chown -R "{{ .Values.containerSecurityContext.runAsUser }}:{{ .Values.podSecurityContext.fsGroup }}" "{{ .Values.volumeMountPath | quote }}"
           securityContext:
             runAsUser: 0
           {{- if .Values.volumePermissions.resources }}
@@ -64,7 +64,7 @@ spec:
           {{- end }}
           volumeMounts:
             - name: drupal-data
-              mountPath: /var/www/html/web/sites/default/files
+              mountPath: {{ .Values.volumeMountPath | quote }}
         {{- end }}
         {{- if .Values.certificates.customCAs }}
         - name: certificates
@@ -182,7 +182,7 @@ spec:
           {{- end }}
           volumeMounts:
             - name: drupal-data
-              mountPath: /var/www/html/web/sites/default/files
+              mountPath: {{ .Values.volumeMountPath | quote }}
       volumes:
         - name: drupal-data
           {{- if .Values.persistence.enabled }}
