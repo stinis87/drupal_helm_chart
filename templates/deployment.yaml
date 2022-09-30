@@ -65,10 +65,10 @@ spec:
           resources: {{- toYaml .Values.volumePermissions.resources | nindent 12 }}
           {{- end }}
           volumeMounts:
-            - name: drupal-data
-              mountPath: {{ .Values.volumeMountPath | quote }}
-            - name: drupal-private-data
-              mountPath: {{ .Values.volumeMountPathPrivate | quote }}
+          - mountPath: {{ .Values.volumeMountPath | quote }}
+            name: drupal-data
+          - mountPath: {{ .Values.volumeMountPathPrivate | quote }}
+            name: drupal-private-data
         {{- end }}
         {{- if .Values.certificates.customCAs }}
         - name: certificates
@@ -185,10 +185,10 @@ spec:
           resources: {{- toYaml .Values.resources | nindent 12 }}
           {{- end }}
           volumeMounts:
-            - name: drupal-data
-              mountPath: {{ .Values.volumeMountPath | quote }}
-            - name: drupal-private-data
-              mountPath: {{ .Values.volumeMountPathPrivate | quote }}
+          - mountPath: {{ .Values.volumeMountPath | quote }}
+            name: drupal-data
+          - mountPath: {{ .Values.volumeMountPathPrivate | quote }}
+            name: drupal-private-data
       volumes:
         - name: drupal-data
           {{- if .Values.persistence.enabled }}
