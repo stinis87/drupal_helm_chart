@@ -56,7 +56,9 @@ spec:
             - -c
             - |
               mkdir -p "{{ .Values.volumeMountPath | quote }}"
+              mkdir -p "{{ .Values.volumeMountPathPrivate | quote }}"
               chown -R "{{ .Values.containerSecurityContext.runAsUser }}:{{ .Values.podSecurityContext.fsGroup }}" "{{ .Values.volumeMountPath | quote }}"
+              chown -R "{{ .Values.containerSecurityContext.runAsUser }}:{{ .Values.podSecurityContext.fsGroup }}" "{{ .Values.volumeMountPathPrivate | quote }}"
           securityContext:
             runAsUser: 0
           {{- if .Values.volumePermissions.resources }}
@@ -65,6 +67,8 @@ spec:
           volumeMounts:
             - name: drupal-data
               mountPath: {{ .Values.volumeMountPath | quote }}
+            - name: drupal-private-data
+              mountPath: {{ .Values.volumeMountPathPrivate | quote }}
         {{- end }}
         {{- if .Values.certificates.customCAs }}
         - name: certificates
@@ -183,11 +187,20 @@ spec:
           volumeMounts:
             - name: drupal-data
               mountPath: {{ .Values.volumeMountPath | quote }}
+            - name: drupal-private-data
+              mountPath: {{ .Values.volumeMountPathPrivate | quote }}
       volumes:
         - name: drupal-data
           {{- if .Values.persistence.enabled }}
           persistentVolumeClaim:
             claimName: {{ .Values.persistence.existingClaim | default (printf "%s-drupal" (include "names.fullname" .)) }}
+          {{- else }}
+          emptyDir: {}
+          {{- end }}
+        - name: drupal-private-data
+          {{- if .Values.persistence.enabled }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.persistence.existingClaim | default (printf "%s-drupal-private" (include "names.fullname" .)) }}
           {{- else }}
           emptyDir: {}
           {{- end }}
