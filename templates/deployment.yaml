@@ -186,18 +186,18 @@ spec:
           {{- end }}
           volumeMounts:
           - mountPath: {{ .Values.volumeMountPath | quote }}
-            name: drupal-data
+            name: {{ .Values.persistence.existingClaim | default (printf "%s-drupal" (include "names.fullname" .)) }}
           - mountPath: {{ .Values.volumeMountPathPrivate | quote }}
-            name: drupal-private-data
+            name: {{ .Values.persistence.existingClaim | default (printf "%s-drupal-private" (include "names.fullname" .)) }}
       volumes:
-        - name: drupal-data
+        - name: {{ .Values.persistence.existingClaim | default (printf "%s-drupal" (include "names.fullname" .)) }}
           {{- if .Values.persistence.enabled }}
           persistentVolumeClaim:
             claimName: {{ .Values.persistence.existingClaim | default (printf "%s-drupal" (include "names.fullname" .)) }}
           {{- else }}
           emptyDir: {}
           {{- end }}
-        - name: drupal-private-data
+        - name: {{ .Values.persistence.existingClaim | default (printf "%s-drupal-private" (include "names.fullname" .)) }}
           {{- if .Values.persistence.enabled }}
           persistentVolumeClaim:
             claimName: {{ .Values.persistence.existingClaim | default (printf "%s-drupal-private" (include "names.fullname" .)) }}
