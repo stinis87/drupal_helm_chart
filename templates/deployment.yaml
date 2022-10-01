@@ -189,6 +189,7 @@ spec:
               mountPath: {{ .Values.volumeMountPath | quote }}
             - name: drupal-private-data
               mountPath: {{ .Values.volumeMountPathPrivate | quote }}
+          tty: true
       volumes:
         - name: drupal-data
           {{- if .Values.persistence.enabled }}
