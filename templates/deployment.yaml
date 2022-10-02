@@ -189,7 +189,6 @@ spec:
               mountPath: {{ .Values.volumeMountPath | quote }}
             - name: drupal-private-data
               mountPath: {{ .Values.volumeMountPathPrivate | quote }}
-          tty: true
       volumes:
         - name: drupal-data
           {{- if .Values.persistence.enabled }}
@@ -201,7 +200,7 @@ spec:
         - name: drupal-private-data
           {{- if .Values.persistence.enabled }}
           persistentVolumeClaim:
-            claimName: {{ .Values.persistence.existingClaim | default (printf "%s-private" (include "names.fullname" .)) }}
+            claimName: {{ .Values.persistence.existingClaim | default (printf "%s-drupal-private" (include "names.fullname" .)) }}
           {{- else }}
           emptyDir: {}
           {{- end }}
