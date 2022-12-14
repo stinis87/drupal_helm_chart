@@ -274,6 +274,8 @@ persistence:
   annotations: {}
 
 # Taken from bitnami-drupal:
+solr:
+  enabled: false
 mariadb:
   enabled: true
   architecture: standalone
