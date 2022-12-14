@@ -276,6 +276,7 @@ persistence:
 # Taken from bitnami-drupal:
 solr:
   enabled: false
+  cloudEnabled: false
 mariadb:
   enabled: true
   architecture: standalone
