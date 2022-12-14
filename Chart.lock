@@ -4,6 +4,9 @@ dependencies:
   version: 10.5.1
 - name: postgresql
   repository: https://charts.bitnami.com/bitnami
-  version: 11.8.1
-digest: sha256:c0e06c1d8cfaf95bc60c18f55ace68b0219e8eb9c609ee976caa48d6c5815d48
-generated: "2022-09-12T12:40:46.366121+02:00"
+  version: 11.9.13
+- name: solr
+  repository: https://charts.bitnami.com/bitnami
+  version: 7.1.0
+digest: sha256:5f065734a62af07bdf547771c4dfe9a15e7a348145c5d72608c03d2a49d67a16
+generated: "2022-12-14T14:32:32.456837+01:00"
