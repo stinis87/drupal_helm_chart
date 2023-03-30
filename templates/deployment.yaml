@@ -161,6 +161,7 @@ spec:
                 secretKeyRef:
                   name: {{ include "drupal.fullname" . }} # Fra bitnami mariadb chart.
                   key: {{ include "drupal.databasePasswordKey" . | quote }}
+            {{- if .Values.smtp }} 
             - name: SMTP_PASSWORD
               valueFrom:
                 secretKeyRef:
@@ -171,6 +172,7 @@ spec:
                 secretKeyRef:
                   name: "smtp"
                   key: "username"
+            {{- end }}
             {{- if .Values.extraEnvVars }}
             {{- include "tplvalues.render" (dict "value" .Values.extraEnvVars "context" $) | nindent 12 }}
             {{- end }}
