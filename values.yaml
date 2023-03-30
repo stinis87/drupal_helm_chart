@@ -58,6 +58,7 @@ drupalEmail: user@example.com
 webroot: '/var/www/html/web'
 volumeMountPath: '/var/www/html/web/sites/default/files'
 volumeMountPathPrivate: '/var/www/html/private_files'
+smtp: false
 
 allowEmptyPassword: true
 
